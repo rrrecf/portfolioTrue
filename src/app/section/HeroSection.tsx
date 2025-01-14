@@ -35,10 +35,7 @@ export default function HeroSection() {
     let currentIndex = 0;
     const interval = setInterval(() => {
       if (currentIndex <= fullText.length) {
-        setText(prev => {
-          const nextChar = fullText[currentIndex - 1];
-          return `${prev}${nextChar || ''}`;
-        });
+        setText(fullText.slice(0, currentIndex));
         currentIndex++;
       } else {
         clearInterval(interval);
