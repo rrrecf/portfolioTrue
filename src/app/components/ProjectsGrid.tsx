@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import Image from "next/image";
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaArrowRight } from 'react-icons/fa';
 import { SiElectron, SiVuedotjs, SiNextdotjs, SiFirebase, SiSharp } from 'react-icons/si';
 import ProjectModal from './ProjectModal';
 
@@ -92,94 +92,149 @@ const projects: Project[] = [
   }
 ];
 
-const projectVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.1,
-      duration: 0.5,
-      ease: "easeOut"
-    }
-  })
-};
-
 export default function ProjectsGrid() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const projectVariants = {
+    hidden: { y: 50, opacity: 0 },
+    visible: { 
+      y: 0, 
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100
+      }
+    }
+  };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+    >
       {projects.map((project, index) => (
         <motion.div
           key={project.id}
-          custom={index}
           variants={projectVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          whileHover={{ y: -10, scale: 1.02 }}
-          className="group bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden shadow-xl cursor-pointer border border-white/10 hover:border-purple-500/50 transition-colors duration-300"
+          onHoverStart={() => setHoveredProject(project.id)}
+          onHoverEnd={() => setHoveredProject(null)}
+          className="group relative h-[400px] rounded-2xl overflow-hidden cursor-pointer"
           onClick={() => setSelectedProject(project)}
         >
-          <div className="relative h-48 overflow-hidden">
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            />
-            <motion.img
-              src={project.images[0]}
-              alt={project.title}
-              className="object-cover w-full h-full transform group-hover:scale-110 transition-transform duration-500"
-            />
-          </div>
+          {/* Image de fond avec effet parallaxe */}
+          <motion.div
+            className="absolute inset-0"
+            animate={{
+              scale: hoveredProject === project.id ? 1.1 : 1
+            }}
+            transition={{ duration: 0.4 }}
+          >
+              <Image
+                src={project.images[0]}
+                alt={project.title}
+                fill
+                className="object-cover"
+              />
+          </motion.div>
 
-          <div className="p-6">
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">
-                {project.title}
-              </h3>
-              <div className="flex gap-2">
-                {project.techIcons.map((iconName, index) => (
-                  <motion.span
-                    key={index}
-                    whileHover={{ scale: 1.2, rotate: 10 }}
-                    className="text-gray-400 group-hover:text-purple-400 transition-colors"
-                  >
-                    {getTechIcon(iconName)}
-                  </motion.span>
-                ))}
-              </div>
-            </div>
+          {/* Overlay avec dégradé */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
 
-            <p className="text-gray-400 mb-4 line-clamp-3">
-              {project.description}
-            </p>
-
-            <div className="flex flex-wrap gap-2 mb-4">
-              {project.tools.map((tool, index) => (
+          {/* Contenu */}
+          <div className="absolute inset-0 p-6 flex flex-col justify-end">
+            {/* Tech Icons */}
+            <motion.div 
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ 
+                opacity: hoveredProject === project.id ? 1 : 0,
+                y: hoveredProject === project.id ? 0 : -20
+              }}
+              className="flex gap-3 mb-4"
+            >
+              {project.techIcons.map((iconName, idx) => (
                 <motion.span
-                  key={index}
-                  whileHover={{ scale: 1.1 }}
-                  className="px-3 py-1 text-sm bg-purple-500/10 text-purple-300 rounded-full hover:bg-purple-500/20 transition-colors"
+                  key={idx}
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white"
                 >
-                  {tool}
+                      {getTechIcon(iconName)}
                 </motion.span>
               ))}
-            </div>
+            </motion.div>
 
-            {project.period && (
-              <p className="text-sm text-gray-500">
-                {project.period}
-              </p>
-            )}
-          </div>
-        </motion.div>
-      ))}
+            {/* Titre et Description */}
+            <motion.h3
+              className="text-2xl font-bold text-white mb-2 transform origin-left"
+              animate={{
+                scale: hoveredProject === project.id ? 1.1 : 1
+              }}
+            >
+              {project.title}
+            </motion.h3>
+
+            <motion.p
+              className="text-gray-300 text-sm line-clamp-2 mb-4"
+              animate={{
+                opacity: hoveredProject === project.id ? 1 : 0.7
+              }}
+            >
+                {project.description}
+            </motion.p>
+
+            {/* Boutons d'action */}
+            <motion.div
+              className="flex gap-3"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ 
+                opacity: hoveredProject === project.id ? 1 : 0,
+                y: hoveredProject === project.id ? 0 : 20
+              }}
+            >
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-4 py-2 rounded-lg bg-purple-500/20 backdrop-blur-sm text-purple-300 border border-purple-500/30 hover:bg-purple-500/30 transition-colors flex items-center gap-2"
+              >
+                <FaArrowRight />
+                <span>Voir détails</span>
+              </motion.button>
+            </motion.div>
+
+            {/* Période */}
+            <motion.div
+              className="absolute top-6 right-6 px-3 py-1 rounded-full bg-black/50 backdrop-blur-sm text-xs text-white"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ 
+                opacity: hoveredProject === project.id ? 1 : 0,
+                x: hoveredProject === project.id ? 0 : 20
+              }}
+            >
+              {project.period}
+            </motion.div>
+            </div>
+          </motion.div>
+        ))}
 
       <ProjectModal
         project={selectedProject}
         onClose={() => setSelectedProject(null)}
       />
-    </div>
+    </motion.div>
   );
 } 

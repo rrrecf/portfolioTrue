@@ -136,13 +136,13 @@ export default function InteractiveJournal() {
                         <h4 className="text-xl font-semibold text-purple-700 dark:text-purple-400">
                           {journalData[currentPage].title}
                         </h4>
-                      </div>
-                    </div>
+      </div>
+    </div>
 
                     <motion.p 
                       className="text-gray-700 dark:text-gray-300 leading-relaxed"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
                       transition={{ delay: 0.2 }}
                     >
                       {journalData[currentPage].content}
@@ -181,7 +181,7 @@ export default function InteractiveJournal() {
                     </motion.div>
                   )}
                 </div>
-              </div>
+            </div>
             </motion.div>
           </AnimatePresence>
         </motion.div>
