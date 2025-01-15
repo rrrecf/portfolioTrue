@@ -1,3 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.overflow-fix {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 .binary-background {
   background: black;
   font-family: "Roboto Mono", monospace;

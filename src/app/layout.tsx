@@ -27,13 +27,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" suppressHydrationWarning>
-      <body className={`${robotoMono.variable} ${raleway.variable}`}>
+      <body className={`${robotoMono.variable} ${raleway.variable} overflow-x-hidden`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          <div className="relative min-h-screen bg-gradient-to-b from-white to-purple-100 dark:from-black dark:to-purple-900/20 text-black dark:text-white transition-colors duration-300">
+          <div className="relative min-h-screen w-full bg-gradient-to-b from-white to-purple-100 dark:from-black dark:to-purple-900/20 text-black dark:text-white transition-colors duration-300">
             <ParticlesBackground />
             <Navbar />
             <PageTransition>
-              <main className="relative z-10">
+              <main className="relative z-10 pt-20">
                 {children}
               </main>
             </PageTransition>

@@ -59,7 +59,7 @@ export default function Navbar() {
   if (!mounted) return null;
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${
+    <nav className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 ${
       isScrolled ? 'py-2 bg-black/80 backdrop-blur-lg' : 'py-4 bg-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-4">
@@ -160,7 +160,7 @@ export default function Navbar() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="md:hidden bg-black/90 backdrop-blur-lg overflow-hidden"
+            className="fixed top-[60px] left-0 right-0 w-full md:hidden bg-black/90 backdrop-blur-lg overflow-hidden"
           >
             <div className="px-4 py-2 space-y-1">
               {menuItems.map((item) => (

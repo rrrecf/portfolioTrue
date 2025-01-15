@@ -7,9 +7,16 @@
   --background: #000000;
 }
 
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   color: var(--foreground);
   transition: all 0.3s ease;
+  position: relative;
+  min-height: 100vh;
 }
 
 /* Styles de base */
