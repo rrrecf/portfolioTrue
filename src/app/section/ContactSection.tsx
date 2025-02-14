@@ -27,7 +27,7 @@ const contactInfo = [
   {
     icon: FaGithub,
     label: "GitHub",
-    value: "github.com/rrrecf",
+    value: "github.com/thisisbriandb",
     link: "https://github.com/rrrecf",
     color: "hover:text-gray-400",
     gradient: "from-gray-600 to-gray-400"
