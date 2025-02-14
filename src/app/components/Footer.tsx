@@ -103,7 +103,7 @@ export default function Footer() {
             <h3 className="text-xl font-semibold text-white">Contact</h3>
             <div className="flex space-x-4">
               <motion.a
-                href="https://github.com/rrrecf"
+                href="https://github.com/thisisbriandb"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ y: -5, scale: 1.1 }}
