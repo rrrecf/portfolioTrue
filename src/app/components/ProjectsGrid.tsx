@@ -49,7 +49,7 @@ const projects: Project[] = [
     images: ["/images/projet2.png"],
     techIcons: ["electron", "vue"],
     period: "2023-2024",
-    github: "https://github.com/rrrecf/school-management"
+    github: "https://github.com/thisisbriandb/school-management"
   },
   {
     id: 3,
@@ -58,7 +58,8 @@ const projects: Project[] = [
     tools: ["React", "Node.js", "MongoDB"],
     images: ["/images/agriculture.png"],
     techIcons: [],
-    period: "2024"
+    period: "2024",
+    github: "https://github.com/thisisbriandb/school-management"
   },
   {
     id: 4,
@@ -68,7 +69,8 @@ const projects: Project[] = [
     images: ["/images/projet1.png"],
     techIcons: ["next"],
     period: "2023",
-    link: "https://construction-materiaux.com"
+    link: "https://www.jackindustries.ma/",
+    github:"https://github.com/thisisbriandb/Jack-Industries"
   },
   {
     id: 5,
@@ -78,7 +80,7 @@ const projects: Project[] = [
     images: ["/images/image007.png"],
     techIcons: ["csharp"],
     period: "2024",
-    github: "https://github.com/rrrecf/accident-manager"
+    github: "https://github.com/thisisbriandb/accident-manager"
   },
   {
     id: 6,
@@ -88,7 +90,7 @@ const projects: Project[] = [
     images: ["/images/screenchat.png"],
     techIcons: ["next", "firebase"],
     period: "2024",
-    github: "https://github.com/rrrecf/ai-chat-assistant"
+    github: "https://github.com/thisisbriandb/ai-chat-assistant"
   }
 ];
 
