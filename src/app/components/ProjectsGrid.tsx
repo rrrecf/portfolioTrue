@@ -49,7 +49,7 @@ const projects: Project[] = [
     images: ["/images/projet2.png"],
     techIcons: ["electron", "vue"],
     period: "2023-2024",
-    github: "https://github.com/thisisbriandb/school-management"
+    github: "https://github.com/thisisbriandb/e-schoolTrue"
   },
   {
     id: 3,
